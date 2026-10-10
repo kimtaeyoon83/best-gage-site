@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>인증 맛집 지도</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="style.css?v=20261010-113906">
+</head>
+<body>
+  <div id="app">
+    <main id="map" aria-label="지도"></main>
+
+    <!-- 검색 + 빠른 필터 칩 (모바일: 지도 위에 뜸 / PC: 사이드바 상단) -->
+    <header id="topbar" class="topbar">
+      <label class="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="상호 검색" autocomplete="off" enterkeyhint="search" aria-label="상호 검색">
+      </label>
+      <div id="chips" class="chips" role="toolbar" aria-label="빠른 필터"></div>
+    </header>
+
+    <button type="button" id="locate" class="locate" aria-label="내 위치로 이동">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+    </button>
+
+    <!-- 지도 점을 눌렀을 때 뜨는 미리보기 카드 (모바일) -->
+    <article id="preview" class="preview" hidden aria-live="polite"></article>
+
+    <aside id="panel" class="sheet-half" aria-label="검색 결과">
+      <div class="sheet-handle" id="sheet-handle" role="button" tabindex="0" aria-label="목록 크기 조절"><span></span></div>
+
+      <section id="list-view" class="list-view">
+        <div class="sheet-head">
+          <p id="summary" class="summary" aria-live="polite"></p>
+          <div class="seg" role="group" aria-label="정렬">
+            <button type="button" data-sort="certs" aria-pressed="true">인증 많은 순</button>
+            <button type="button" data-sort="dist" aria-pressed="false">가까운 순</button>
+          </div>
+        </div>
+        <div id="hints"></div>
+        <ul id="list" class="list"></ul>
+        <button type="button" id="more" class="more" hidden>더 보기</button>
+      </section>
+
+      <section id="detail" class="detail" hidden></section>
+    </aside>
+
+    <section id="filters" class="filters" aria-label="필터" role="dialog" aria-modal="true">
+      <div class="filters-head">
+        <h2>필터</h2>
+        <button type="button" class="link" id="reset">초기화</button>
+        <button type="button" class="icon-btn" id="filters-close" aria-label="닫기">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div class="filters-body" id="filters-body"></div>
+      <div class="filters-foot">
+        <button type="button" class="primary" id="filters-apply">결과 보기</button>
+      </div>
+    </section>
+
+    <div id="toast" class="toast" role="status" hidden></div>
+  </div>
+
+  <!-- config.js: `uv run bestgage serve`/`deploy` 가 .env 의 KAKAO_JS_KEY 로 생성 (git 제외) -->
+  <script src="config.js?v=20261010-113906"></script>
+  <script src="https://unpkg.com/supercluster@8.0.1/dist/supercluster.min.js"></script>
+  <script src="app.js?v=20261010-113906"></script>
+</body>
+</html>
